@@ -1,0 +1,27 @@
+version: '3.2'
+
+services:
+  database:
+    # use the postgres image from https://hub.docker.com/_/postgres
+    image: postgres:latest
+
+    # restart this container if it is killed
+    restart: always
+
+    # Allow postgres port 5432 in the docker container to be accessible on the host machine via port 5432
+    # The port assignment on the left indicates the port to listen on the host machine (your computer),
+    # while the port on the right is the port that the docker container exposes.
+    # Each container may expose custom ports. Visit (https://hub.docker.com/_/postgres) for more.
+    ports:
+      - 5432:5432
+
+    # set up environment variables to access postgres
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: demo_db
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
